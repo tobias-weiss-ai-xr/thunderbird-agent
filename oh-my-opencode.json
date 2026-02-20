@@ -1,0 +1,59 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
+  "google_auth": false,
+  "agents": {
+    "sisyphus": {
+      "model": "zai/glm-4.7"
+    },
+    "metis": {
+      "model": "zai/glm-4.7"
+    },
+    "librarian": {
+      "model": "zai/glm-4.6"
+    },
+    "explore": {
+      "model": "zai/glm-4.6"
+    },
+    "oracle": {
+      "model": "zai/glm-4.7"
+    },
+    "frontend-ui-ux-engineer": {
+      "model": "zai/glm-4.7"
+    },
+    "document-writer": {
+      "model": "zai/glm-4.6"
+    },
+    "multimodal-looker": {
+      "model": "zai/glm-4.6V"
+    },
+    "prometheus": {
+      "model": "zai/glm-4.7"
+    },
+    "momus": {
+      "model": "zai/glm-4.7"
+    },
+    "atlas": {
+      "model": "zai/glm-4.7"
+    }
+  },
+  "categories": {
+    "visual-engineering": {
+      "model": "zai/glm-4.6V"
+    },
+    "ultrabrain": {
+      "model": "zai/glm-4.6"
+    },
+    "quick": {
+      "model": "zai/glm-4.6"
+    },
+    "unspecified-low": {
+      "model": "zai/glm-4.6"
+    },
+    "unspecified-high": {
+      "model": "zai/glm-4.7"
+    },
+    "writing": {
+      "model": "zai/glm-4.6"
+    }
+  }
+}

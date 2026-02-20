@@ -1,0 +1,70 @@
+{
+  "plugin": [
+    "opencode-antigravity-auth@1.5.5",
+    "oh-my-opencode"
+  ],
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama (local)",
+      "options": {
+        "baseURL": "http://localhost:11434/v1"
+      },
+      "models": {
+        "qwen3:latest": {
+          "name": "qwen3:latest"
+        }
+      }
+    },
+    "zai": {
+      "options": {
+        "baseURL": "https://api.z.ai/api/coding/paas/v4"
+      },
+      "models": {
+        "glm-4.7": {
+          "name": "glm-4.7"
+        }
+      }
+    },
+    "saia": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "SAIA AI",
+      "options": {
+        "baseURL": "https://chat-ai.academiccloud.de/v1",
+        "apiKey": "8d98f5292336d2ac82c9375b1a781e9b"
+      },
+      "models": {
+        "qwen3-235b-a22b": {
+          "name": "qwen3-235b-a22b"
+        }
+      }
+    }
+  },
+  "mcp": {
+    "blender": {
+      "type": "local",
+      "command": [
+        "uvx",
+        "blender-mcp"
+      ],
+      "enabled": true
+    },
+    "ableton-mcp-server": {
+      "type": "local",
+      "command": [
+        "python",
+        "C:/Users/Tobias/git/ableton-mcp-extended/MCP_Server/server.py"
+      ],
+      "enabled": true
+    },
+    "pal-mcp-server": {
+      "type": "local",
+      "command": [
+        "C:/Users/Tobias/git/pal-mcp-server/.pal_venv/Scripts/python.exe",
+        "C:/Users/Tobias/git/pal-mcp-server/server.py"
+      ],
+      "enabled": true
+    }
+  }
+}

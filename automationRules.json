@@ -1,0 +1,27 @@
+{
+  "rules": [
+    {
+      "id": "rule-1",
+      "condition": {
+        "field": "subject",
+        "operator": "contains",
+        "value": "Urgent"
+      },
+      "action": {
+        "type": "markRead"
+      }
+    },
+    {
+      "id": "rule-2",
+      "condition": {
+        "field": "from",
+        "operator": "equals",
+        "value": "boss@example.com"
+      },
+      "action": {
+        "type": "label",
+        "value": "Work"
+      }
+    }
+  ]
+}

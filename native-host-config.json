@@ -1,0 +1,15 @@
+# thunderbird-mcp-native-host.json
+# Native messaging host configuration for Thunderbird MCP Bridge
+#
+# This file should be placed in:
+# - Windows: %APPDATA%\Thunderbird\NativeMessagingHosts\
+# - Linux: ~/.thunderbird/NativeMessagingHosts/
+# - macOS: ~/Library/Application Support/Thunderbird/NativeMessagingHosts/
+
+{
+  "name": "thunderbird.mcp.bridge",
+  "description": "Bridge between MCP server and Thunderbird extension",
+  "path": "C:/Users/Tobias/git/thunderbird-mcp/thunderbird-mcp-server/native-host.js",
+  "type": "stdio",
+  "allowed_extensions": ["thunderbird-mcp-bridge@example.com"]
+}
