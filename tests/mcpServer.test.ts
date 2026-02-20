@@ -6,16 +6,38 @@ import { describe, it, expect, jest, beforeEach } from '@jest/globals';
 
 describe('Thunderbird MCP Server - Module Loading', () => {
   it('should import the server module without errors', async () => {
-    // Just verify we can import - actual tool registration happens at runtime
-    const serverModule = await import('../src/index');
-    expect(serverModule).toBeDefined();
+    // Mock Bun's serve function to prevent HTTP server startup during test import
+    const mockServe = jest.fn();
+    
+    // Mock the bun module with our custom serve function
+    jest.mock('bun', () => {
+      const originalBun = jest.requireActual('bun') as any;
+      return {
+        ...originalBun,
+        serve: mockServe
+      };
+    });
+
+    try {
+      // Set environment to disable HTTP server during this test
+      const originalEnv = process.env.ENABLE_HTTP_SERVER;
+      process.env.ENABLE_HTTP_SERVER = 'false';
+      
+      const serverModule = await import('../src/index');
+      expect(serverModule).toBeDefined();
+      
+      // Restore original environment
+      process.env.ENABLE_HTTP_SERVER = originalEnv;
+    } finally {
+      // Reset mocks to prevent test pollution
+      jest.resetAllMocks();
+    }
   });
 
   it('should create a FastMCP instance', () => {
     const testServer = new FastMCP({
       name: 'test-server',
-      version: '1.0.0',
-      description: 'Test server'
+      version: '1.0.0'
     });
     expect(testServer).toBeInstanceOf(FastMCP);
   });
@@ -35,8 +57,7 @@ describe('Thunderbird MCP Server - Tools Registration', () => {
   beforeEach(() => {
     server = new FastMCP({
       name: 'test-thunderbird-mcp',
-      version: '1.0.0',
-      description: 'Test Thunderbird MCP Server'
+      version: '1.0.0'
     });
   });
 
@@ -45,9 +66,9 @@ describe('Thunderbird MCP Server - Tools Registration', () => {
       server.addTool({
         name: 'test_fetch_emails',
         description: 'Test tool',
-        parameters: {},
+        parameters: {} as any,
         handler: async () => ({ success: true })
-      });
+      } as any);
     }).not.toThrow();
   });
 
@@ -56,9 +77,9 @@ describe('Thunderbird MCP Server - Tools Registration', () => {
       server.addTool({
         name: 'test_fetch_events',
         description: 'Test calendar tool',
-        parameters: {},
+        parameters: {} as any,
         handler: async () => ({ success: true })
-      });
+      } as any);
     }).not.toThrow();
   });
 
@@ -67,9 +88,9 @@ describe('Thunderbird MCP Server - Tools Registration', () => {
       server.addTool({
         name: 'test_fetch_contacts',
         description: 'Test contact tool',
-        parameters: {},
+        parameters: {} as any,
         handler: async () => ({ success: true })
-      });
+      } as any);
     }).not.toThrow();
   });
 
@@ -78,9 +99,9 @@ describe('Thunderbird MCP Server - Tools Registration', () => {
       server.addTool({
         name: 'test_list_rules',
         description: 'Test automation tool',
-        parameters: {},
+        parameters: {} as any,
         handler: async () => ({ success: true })
-      });
+      } as any);
     }).not.toThrow();
   });
 });
