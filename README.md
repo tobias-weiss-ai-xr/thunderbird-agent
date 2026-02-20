@@ -50,10 +50,30 @@ Once configured, the thunderbird-mcp tools will be available in OpenCode under t
 
 For local development without OpenCode:
 
+### Windows (Batch Files)
+```batch
+# Option 1: Quick setup (starts both servers)
+run-full-tests.bat
+
+# Option 2: Start MCP server only
+start-mcp-server.bat
+```
+
+### Cross-Platform
 1. Install dependencies:
-   ```bash
-   bun install
-   ```
+    ```bash
+    bun install
+    ```
+
+2. Run server directly:
+    ```bash
+    bun run src/index.ts
+    ```
+
+### With Environment Variable (Unix/Linux/macOS)
+```bash
+ENABLE_HTTP_SERVER=true bun run src/index.ts
+```
 
 2. Run the server directly:
    ```bash
