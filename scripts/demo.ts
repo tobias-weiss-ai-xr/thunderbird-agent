@@ -5,7 +5,7 @@
 // This script provides a simple CLI to test and demonstrate
 // the thunderbird-mcp functionality without needing OpenCode
 
-const MCP_SERVER_URL = 'http://localhost:3476';
+const MCP_SERVER_URL = 'http://localhost:8642';
 
 /**
  * Display help information

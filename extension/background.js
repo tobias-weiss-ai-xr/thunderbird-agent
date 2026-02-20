@@ -4,7 +4,7 @@
 console.log('Thunderbird MCP Bridge extension loaded');
 
 // MCP Server configuration
-const MCP_SERVER_URL = 'http://localhost:3476';
+const MCP_SERVER_URL = 'http://localhost:8642';
 let mcpServerConnected = false;
 
 // Notify MCP server that extension is loaded
@@ -238,19 +238,6 @@ async function handleListFolders(request) {
   }
 }
 
-// Batch delete emails in Thunderbird
-async function batchDeleteEmails(ids) {
-  try {
-    for (const id of ids) {
-      await browser.messages.remove(id);
-    }
-    return { success: true, message: 'Emails deleted successfully' };
-  } catch (error) {
-    console.error('Failed to batch delete emails:', error);
-    return { success: false, error: error.message };
-  }
-}
-
 // Batch archive emails in Thunderbird
 async function batchArchiveEmails(ids) {
   try {
@@ -265,7 +252,7 @@ async function batchArchiveEmails(ids) {
   }
 }
 
-// ============== EMAIL HANDLERS ==============
+// ============== EMAIL HANDLERS (continued) ==============
 
 async function handleFetchEmails(request) {
   try {

@@ -115,13 +115,19 @@ The server communicates with Thunderbird through a companion extension located i
 
 **Note**: The extension communication is currently a placeholder. Implementation needed for full functionality.
 
+## Documentation
+
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Complete architecture documentation with component interaction flow
+- **[INSTALLATION.md](INSTALLATION.md)** - Installation guide, usage examples, troubleshooting, development workflow
+
 ## Architecture Notes
 
 - **MCP Protocol**: Uses FastMCP framework for tool definitions
 - **Type Safety**: Full TypeScript support with custom type definitions
 - **Module System**: ESM modules with ES2022 target
-- **Communication**: Placeholder for Thunderbird extension integration (needs implementation)
+- **Communication**: HTTP polling bridge to Thunderbird extension on port **8642**
 - **OpenCode**: Integrated as local MCP server for AI-assisted development
+- **Components**: MCP server and Thunderbird extension work together (see ARCHITECTURE.md)
 
 ## Development
 
@@ -141,10 +147,31 @@ bun run build
 ✅ 22 tools defined (email, calendar, contact, automation, AI sorting, AI analysis)
 ✅ TypeScript type definitions
 ✅ All tests passing
-✅ HTTP polling bridge to Thunderbird extension implemented
+✅ HTTP polling bridge to Thunderbird extension implemented (port 8642)
 ✅ AI-powered email sorting with rule-based classification
 ✅ Learning from user feedback
-⏳ Thunderbird extension needs to be installed for actual functionality
+✅ Extension simulator for testing without Thunderbird
+✅ Complete architecture documentation
+⏳ Real Thunderbird extension needs to be installed for full functionality
+
+## Quick Start (Development)
+
+**Option 1: Using Extension Simulator**
+```bash
+# Terminal 1: Start MCP server
+bun run src/index.ts
+
+# Terminal 2: Start extension simulator
+bun run scripts/simulate-extension.ts
+
+# Terminal 3: Test
+bun run scripts/test-full-flow.ts
+```
+
+**Option 2: Using Real Thunderbird Extension**
+1. Install extension in Thunderbird (see [INSTALLATION.md](INSTALLATION.md))
+2. Start MCP server: `bun run src/index.ts`
+3. Use MCP tools via OpenCode or other MCP clients
 
 ### AI-Powered Email Sorting Features
 
@@ -178,10 +205,10 @@ The thunderbird-mcp server communicates with Thunderbird via an HTTP polling bri
 OpenCode/AI Client
     ↓ (MCP Protocol)
 MCP Server (src/index.ts)
-    ↓ (HTTP Server: localhost:3476)
-    ├─ GET /api/messages         ← Extension polls here
-    ├─ POST /api/messages/{id}   ← Extension sends responses here
-    └─ POST /api/extension-status ─ Extension announces connection
+     ↓ (HTTP Server: localhost:8642)
+     ├─ GET /api/messages         ← Extension polls here
+     ├─ POST /api/messages/{id}   ← Extension sends responses here
+     └─ POST /api/extension-status ─ Extension announces connection
     ↓ (HTTP Polling)
 Thunderbird Extension (extension/background.js)
     ↓ (Thunderbird WebExtension API)
@@ -192,8 +219,8 @@ Thunderbird Email Client
 
 1. **MCP Server Startup**
    - Starts MCP protocol server (stdio/stderr)
-   - Starts HTTP server on localhost:3476
-   - Waits for extension to connect
+    - Starts HTTP server on localhost:8642
+    - Waits for extension to connect
 
 2. **Extension Startup**
    - Loads in Thunderbird
@@ -226,11 +253,12 @@ To enable actual Thunderbird integration:
    ```
 
 2. **Verify connection**:
-   - Server logs should show "Extension status: CONNECTED"
-   - Check health endpoint: `curl http://localhost:3476/health`
+    - Server logs should show "Extension status: CONNECTED"
+    - Check health endpoint: `curl http://localhost:8642/health`
 
 ### Configuration
 
 Environment variables:
 - `ENABLE_HTTP_SERVER=false` - Start MCP server without HTTP bridge (useful for testing)
-- Default: HTTP bridge is enabled
+- `MCP_SERVER_PORT=8642` - Override default MCP server port (must match extension)
+- Default: HTTP bridge is enabled on port 8642

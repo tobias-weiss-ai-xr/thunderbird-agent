@@ -4,9 +4,9 @@
 // These tests verify the HTTP polling bridge works correctly
 // by simulating the Thunderbird extension behavior
 
-import { describe, test, expect, beforeEach, afterEach } from '@bun:test';
+import { describe, test, expect, beforeEach, afterEach } from '@jest/globals';
 
-const MCP_SERVER_URL = 'http://localhost:3476';
+const MCP_SERVER_URL = 'http://localhost:8642';
 
 describe('Thunderbird MCP Integration Tests', () => {
   let server: any;

@@ -5,7 +5,7 @@
 // This script polls the MCP server and responds to messages,
 // simulating what a real Thunderbird extension would do.
 
-const MCP_SERVER_URL = 'http://localhost:3476';
+const MCP_SERVER_URL = 'http://localhost:8642';
 const POLL_INTERVAL = 2000; // 2 seconds
 
 interface QueuedMessage {

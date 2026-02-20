@@ -15,7 +15,7 @@ let thunderbirdConnected = false;
 let messageQueue: Map<string, any> = new Map();
 let pendingRequests: Map<string, (response: any) => void> = new Map();
 let connectionAttempts = 0;
-const MCP_SERVER_PORT = 3476;
+const MCP_SERVER_PORT = 8642;
 
 // ============== EMAIL TOOLS ==============
 
